@@ -31,7 +31,7 @@ th{
   width: 5%;
 }
 .th-nome, .td-nome{
-  width: 30%;
+  width: 25%;
 }
 .th-atividade, .td-atividade{
   width: 10%;
@@ -40,7 +40,10 @@ th{
   width: 10%;
 }
 .th-descricao, .td-descricao{
-  width: 35%;
+  width: 25%;
+}
+.th-dtrealizacao, .td-dtrealizacao{
+  width: 15%;
 }
 .th-acoes, .td-acoes{
   width: 10%;
