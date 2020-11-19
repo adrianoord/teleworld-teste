@@ -80,9 +80,9 @@
         $(document).ready(()=>{   
             getList();                 
             $('#criar').on('click', ()=>{
+                resetaForm();
                 $('#DivFormAtividade').css('display','block');  
-                $('#content-list-atividades').css('display','none');
-                resetaForm();      
+                $('#content-list-atividades').css('display','none');    
             });
             $('#listar').on('click', ()=>{ 
                 resetaForm();
