@@ -1,0 +1,32 @@
+{
+  "name": "teleworld_teste",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adrianoord/teleworld-teste.git"
+  },
+  "author": "Adriano R. Dutra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adrianoord/teleworld-teste/issues"
+  },
+  "homepage": "https://github.com/Adrianoord/teleworld-teste#readme",
+  "dependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-angular": "^11.0.0",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.1.3",
+    "moment": "^2.29.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.6"
+  }
+}

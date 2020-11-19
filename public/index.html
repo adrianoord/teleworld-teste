@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de atividade</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/styleForm.css"/>
+    <link rel="stylesheet" href="css/styleTable.css"/>
+</head>
+<body>
+    <div class="header">
+        <div class="menu-list">
+            <div class="menu-title">Gerênciador de Atividades</div>
+            <span id="criar" class="menu-item">Criar</span>
+            <span id="listar" class="menu-item">Listar</span>
+        </div>
+        <div id="content-list-atividades" class="content-list-atividades" style="display: block;">
+            <section>
+                <h1>Lista de atividades</h1>
+                <div class="tbl-header">
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                      <tr>
+                        <th class="th-id">ID</th>
+                        <th class="th-nome">Nome</th>
+                        <th class="th-atividade">Atividade</th>
+                        <th class="th-prioridade">Prioridade</th>
+                        <th class="th-descricao">Descrição</th>
+                        <th class="th-acaoes">Ações</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <div class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody id='tb-content'>
+                        
+                    </tbody>
+                </table>
+                </div>
+              </section>
+        </div>
+        <div id="DivFormAtividade" class="DivFormAtividade" style="display: none;">
+            <form action="#" id="formCriaAtividade" method="post">
+                <input name="id" id="id" type="hidden" value=""/>
+                <div class="campo campo-nome">
+                    <input id="nome" name="nome" type="text" placeholder="Nome" autocomplete="off"/>
+                </div>
+                <div class="campo campo-atividade">
+                    <span class="info-campo">Atividade</span>
+                    <select id="atividade" name="atividade">
+                        <option value="desenvolvimento" selected>Desenvolvimento</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="documentacao">Documentação</option>
+                    </select>
+                </div>
+                <div class="campo campo-prioridade">
+                    <span class="info-campo">Prioridade</span>
+                    <select id="prioridade" name="prioridade">
+                        <option value="normal" selected>Normal</option>
+                        <option value="urgente">Urgente</option>
+                    </select>
+                </div>
+                <div class="campo campo-descricao">
+                    <textarea id="descricao" name="descricao" placeholder="Descrição"></textarea>
+                </div>
+                <div class="campo campo-data-realizacao">
+                    <span class="info-campo">Realização:</span>
+                    <input id="dtrealizacao" name="dtrealizacao" type="date"/>
+                </div>
+                <input type="button" value="Adicionar atividade" id="btnActions" onclick="addAtividade()"/>
+            </form>
+            </div>
+    </div>
+    <script type="text/javascript">      
+        $(document).ready(()=>{   
+            getList();                 
+            $('#criar').on('click', ()=>{
+                $('#DivFormAtividade').css('display','block');  
+                $('#content-list-atividades').css('display','none');      
+            });
+            $('#listar').on('click', ()=>{ 
+                resetaForm();
+            });
+        });
+
+        function getList(){
+            $('#content-list-atividades').css('display','block')
+            $('#DivFormAtividade').css('display','none');
+            $.ajax({
+                url: '/getAtividades',
+                method: 'POST',
+                data: {},
+                dataType: 'HTML',
+                success: (data)=>{
+                    const tableBody = $('#tb-content');
+                    tableBody.html('').append(data);
+                },
+            });
+        }
+
+        function getListJson(id, callback){
+            $.ajax({
+                url: '/getAtividadeApi',
+                method: 'POST',
+                data: {
+                    id:id
+                },
+                dataType: 'JSON',
+                success: (data)=>{
+                    callback(data[0]);
+                }
+            });
+        }
+
+        function addAtividade(){
+            const form = $('#formCriaAtividade');
+            const data = form.serializeArray();
+            $.ajax({
+                url: '/createAtividade',
+                method: 'POST',
+                data: data,
+                dataType: 'JSON',
+                success: (data)=>{
+                    console.log(data.res);
+                    if(data.status) resetaForm();
+                },
+            });
+            resetaForm();
+        }
+
+        function updateAtividade(){
+            const form = $('#formCriaAtividade');
+            const data = form.serializeArray();
+            $.ajax({
+                url: '/updateAtividade',
+                method: 'POST',
+                data: data,
+                dataType: 'JSON',
+                success: (data)=>{
+                    console.log(data.res);
+                    if(data.status) resetaForm();
+                },
+            });
+        }
+
+        function deleteAtividade(id){
+            $.ajax({
+                url: '/deleteAtividade',
+                method: 'POST',
+                data: {id:id},
+                dataType: 'JSON',
+                success: (data)=>{
+                    console.log(data.res);
+                    if(data.status) resetaForm();
+                },
+            });
+        }
+
+        function preencheForm(id){
+            getListJson(id, data=>{
+                $('#id').val(data.id);
+                $('#nome').val(data.nome);
+                $('#descricao').val(data.descricao);
+                $('#atividade').val(data.atividade);
+                $('#prioridade').val(data.prioridade);
+                $('#dtrealizacao').val(new Date(data.dtrealizacao).toISOString().split('T')[0].slice(0, 10));
+            });
+        }
+
+        function resetaForm(){
+            $('#id').val('');
+            $('#nome').val('');
+            $('#descricao').val('');
+            $('#atividade').val('Desenvolvimento');
+            $('#prioridade').val('normal');
+            $('#dtrealizacao').val('');
+            $('#btnActions').attr('onclick', 'createAtividade()');
+            $('#btnActions').val('Adicionar atividade');
+            getList();
+        }
+    </script>
+    <script type="text/javascript">
+        function btnEditar(id){ 
+            $('#DivFormAtividade').css('display','block');  
+            $('#content-list-atividades').css('display','none'); 
+            $('#btnActions').attr('onclick', 'updateAtividade()');
+            $('#btnActions').val('Atualizar');
+            preencheForm(id); 
+        }
+        function btnExcluir(id){
+            deleteAtividade(id);
+        }
+    </script>
+    <script type="text/javascript">
+        $(window).on("load resize ", function() {
+            var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+            $('.tbl-header').css({'padding-right':scrollWidth});
+        }).resize();  
+    </script>
+</body>
+</html>
