@@ -82,4 +82,4 @@ async function validacaoDeEntrada(data){
     return true;
 }
 
-app.listen(8080, () => console.log(`Started server at http://localhost:8080!`));
+app.listen(8080, () => console.log(`Server iniciado: http://localhost:8080!`));
