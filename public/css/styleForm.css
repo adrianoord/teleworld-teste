@@ -1,85 +1,81 @@
-h1{
-  font-size: 30px;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 15px;
-}
-table{
-  width:100%;
-  table-layout: auto;
-}
-.tbl-header{
-  background-color: rgba(255,255,255,0.3);
- }
-.tbl-content{
-  height:300px;
-  overflow-x:auto;
-  margin-top: 0px;
-  border: 1px solid rgba(255,255,255,0.3);
-}
-th{
-  padding: 20px 15px;
-  text-align: left;
-  font-weight: 500;
-  font-size: 12px;
-  color: #fff;
-  text-transform: uppercase;
-}
-.th-id, .td-id{
-  width: 5%;
-}
-.th-nome, .td-nome{
-  width: 25%;
-}
-.th-atividade, .td-atividade{
-  width: 10%;
-}
-.th-prioridade, .td-prioridade{
-  width: 10%;
-}
-.th-descricao, .td-descricao{
-  width: 25%;
-}
-.th-dtrealizacao, .td-dtrealizacao{
-  width: 10%;
-}
-.th-acoes, .td-acoes{
-  width: 10%;
-}
-td{
-  padding: 15px;
-  text-align: left;
-  vertical-align:middle;
-  font-weight: 300;
-  font-size: 12px;
-  color: #fff;
-  border-bottom: solid 1px rgba(255,255,255,0.1);
-}
-
-img{
-  width:25px;
-  margin:2px;
-  cursor: pointer;
-}
-
-body{
-  background: -webkit-linear-gradient(left, #49757e, #5089b3);
-  background: linear-gradient(to right, #5089b3, #49757e);
-  font-family: 'Verdana', sans-serif;
-}
-section{
-  margin: 50px;
-}
-
-::-webkit-scrollbar {
-    width: 6px;
-} 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-} 
-
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-}
+input, select, textarea{
+    background:rgba(0,0,0,0);
+    border:none;
+    border-bottom:1px solid rgba(0,0,0,0.3);
+  }
+  
+  input::placeholder, textarea::placeholder{
+    color:rgba(0,0,0,0.7);
+  }
+  
+  textarea:focus, input:focus, select:focus{
+      outline: none;
+  }
+  
+  input#nome, textarea{
+    display:inline-block;
+    width:77%;
+    margin-top:5px;
+    resize:none;
+  }
+  
+  input[type="text"]{
+    height:40px;
+  }
+  
+  span.info-campo{
+    text-align:left;
+    width:20%;
+    padding-top: 5px;
+    position: relative;
+  } 
+  
+  input#dateRealizacao, select{
+    display:inline-block;
+    width:55%;
+  }
+  
+  input[type="button"]{
+    bottom:5px;
+    width:200px;
+    height:40px;
+    left:50%;
+    transform: translate(-50%);
+    position:fixed;
+    border-radius:10px;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.2);
+  }
+  
+  input[type="button"]:active{
+    box-shadow:0px 0px 5px rgba(0,0,0,0.3);
+    background:rgba(0,0,0,0.5);
+    color:white;
+  }
+  
+  select{
+    height:40px;
+  }
+  
+  textarea{
+    height:80px;
+  }
+  
+  .DivFormAtividade{
+    width:400px;
+    height:300px;
+    padding-right:10px;
+    left:50%;
+    transform: translate(-50%);
+    position:fixed;
+    box-shadow:0px 0px 20px black;
+    border-radius:5px;
+    background:#49757e;
+    text-align:center;
+    margin-top:50px;
+  }
+  
+  .campo{
+    display:block;
+    width:100%;
+  }
