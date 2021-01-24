@@ -79,13 +79,14 @@
     <script type="text/javascript">      
         $(document).ready(()=>{   
             getList();                 
-            $('#criar').on('click', ()=>{
+            $('#criar').on('click', ()=>{ 
                 $('#DivFormAtividade').css('display','block');  
                 $('#content-list-atividades').css('display','none');
-                resetaForm();      
+                resetaForm();        
             });
             $('#listar').on('click', ()=>{ 
                 resetaForm();
+		abreList();
             });
         });
 
@@ -195,6 +196,12 @@
             $('#btnActions').val('Adicionar atividade');
             getList();
         }
+
+	function abreList(){
+		$('#btnActions').attr('onclick', 'addAtividade()');
+        	$('#btnActions').val('Adicionar atividade');
+        	getList();
+	}
     </script>
     <script type="text/javascript">
         function btnEditar(id){ 
