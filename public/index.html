@@ -81,8 +81,8 @@
             getList();                 
             $('#criar').on('click', ()=>{ 
                 $('#DivFormAtividade').css('display','block');  
-                $('#content-list-atividades').css('display','none'); 
-		resetaForm();   
+                $('#content-list-atividades').css('display','none');
+                resetaForm();        
             });
             $('#listar').on('click', ()=>{ 
                 resetaForm();
@@ -131,7 +131,6 @@
                     if(data.status == true){
                         console.log(data.res);
                         resetaForm();
-            		abreList();
                     }else{
                         alert(data.res);
                     }
@@ -151,7 +150,6 @@
                     if(data.status == true){
                         console.log(data.res);
                         resetaForm();
-            		abreList();
                     }else{
                         alert(data.res);
                     }
@@ -168,7 +166,7 @@
                 success: (data)=>{
                     if(data.status == true){
                         console.log(data.res);
-                        getList();
+                        resetaForm();
                     }else{
                         alert(data.res);
                     }
@@ -194,6 +192,9 @@
             $('#atividade').val('desenvolvimento');
             $('#prioridade').val('normal');
             $('#dtrealizacao').val('');
+            $('#btnActions').attr('onclick', 'addAtividade()');
+            $('#btnActions').val('Adicionar atividade');
+            getList();
         }
 
 	function abreList(){
