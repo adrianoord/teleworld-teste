@@ -48,6 +48,7 @@ app.use(bodyParser.urlencoded({
                 <td class="td-atividade">${item.atividade}</td>
                 <td class="td-prioridade">${item.prioridade}</td>
                 <td class="td-descricao">${item.descricao}</td>
+                <td class="td-dtrealizacao">${new Date(item.dtrealizacao).toISOString().split('T')[0].slice(0, 10)}</td>
                 <td class="td-acoes"><img src="img/edit.png" onclick="btnEditar(${item.id})"/><img src="img/excluir.png" onclick="btnExcluir(${item.id})"/></td>
             </tr>
             `;
@@ -82,4 +83,4 @@ async function validacaoDeEntrada(data){
     return true;
 }
 
-app.listen(8080, () => console.log(`Started server at http://localhost:8080!`));
+app.listen(8080, () => console.log(`Server iniciado: http://localhost:8080!`));
