@@ -75,12 +75,12 @@ async function validacaoDeEntrada(data){
     const prioridades = ['normal', 'urgente'];
     const tiposAtividades = ['manutencao','documentacao','desenvolvimento'];
     if(data.nome.length < 3) return 'Digite o seu nome';
-    
+
     if(!tiposAtividades.includes(data.atividade)) return 'Atividade não existe';
     if(!prioridades.includes(data.prioridade)) return 'Prioridade não existe';
     if(!moment(data.dtrealizacao, "YYYY-MM-DD", true).isValid()) return 'Data inválida';
-
     return true;
 }
+
 
 app.listen(8080, () => console.log(`Server iniciado: http://localhost:8080!`));
