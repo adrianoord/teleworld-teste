@@ -1,8 +1,7 @@
 const db = require('./db');
 const express = require('express');
-const fs = require('fs');
+const cors = require('cors');
 const path = require('path');
-const http = require('http');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 
@@ -13,6 +12,7 @@ const limiter = rateLimit({
 });
 
 const app = express();
+app.use(cors());
 app.use(express.static(path.join(__dirname,'public')));
 app.use( bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({
 (async ()=>{
     //INSERT
     app.post('/createAtividade', limiter, async (req, res) => {
+        res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, content-type");
         const isValid = await validacaoDeEntrada(req.body);
         if(isValid != true) return res.send({res: isValid, status: false});
         if(db.incluiAtividade(req.body)) return res.send({res: 'Atividade incluida!', status: true});
@@ -72,7 +73,6 @@ app.use(bodyParser.urlencoded({
 async function validacaoDeEntrada(data){
     const prioridades = ['normal', 'urgente'];
     const tiposAtividades = ['manutencao','documentacao','desenvolvimento'];
-
     if(data.nome.length < 3) return 'Digite o seu nome';
     if(!tiposAtividades.includes(data.atividade)) return 'Atividade não existe';
     if(!prioridades.includes(data.prioridade)) return 'Prioridade não existe';

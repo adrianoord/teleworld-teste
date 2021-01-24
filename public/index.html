@@ -29,6 +29,7 @@
                         <th class="th-atividade">Atividade</th>
                         <th class="th-prioridade">Prioridade</th>
                         <th class="th-descricao">Descrição</th>
+                        <th class="th-dtrealizacao">Data de Realização</th>
                         <th class="th-acaoes">Ações</th>
                       </tr>
                     </thead>
@@ -80,7 +81,8 @@
             getList();                 
             $('#criar').on('click', ()=>{
                 $('#DivFormAtividade').css('display','block');  
-                $('#content-list-atividades').css('display','none');      
+                $('#content-list-atividades').css('display','none');
+                resetaForm();      
             });
             $('#listar').on('click', ()=>{ 
                 resetaForm();
@@ -124,12 +126,15 @@
                 method: 'POST',
                 data: data,
                 dataType: 'JSON',
-                success: (data)=>{
-                    console.log(data.res);
-                    if(data.status) resetaForm();
+                success: (data)=>{ 
+                    if(data.status == true){
+                        console.log(data.res);
+                        resetaForm();
+                    }else{
+                        alert(data.res);
+                    }
                 },
             });
-            resetaForm();
         }
 
         function updateAtividade(){
@@ -141,8 +146,12 @@
                 data: data,
                 dataType: 'JSON',
                 success: (data)=>{
-                    console.log(data.res);
-                    if(data.status) resetaForm();
+                    if(data.status == true){
+                        console.log(data.res);
+                        resetaForm();
+                    }else{
+                        alert(data.res);
+                    }
                 },
             });
         }
@@ -154,8 +163,12 @@
                 data: {id:id},
                 dataType: 'JSON',
                 success: (data)=>{
-                    console.log(data.res);
-                    if(data.status) resetaForm();
+                    if(data.status == true){
+                        console.log(data.res);
+                        resetaForm();
+                    }else{
+                        alert(data.res);
+                    }
                 },
             });
         }
@@ -178,7 +191,7 @@
             $('#atividade').val('desenvolvimento');
             $('#prioridade').val('normal');
             $('#dtrealizacao').val('');
-            $('#btnActions').attr('onclick', 'createAtividade()');
+            $('#btnActions').attr('onclick', 'addAtividade()');
             $('#btnActions').val('Adicionar atividade');
             getList();
         }
